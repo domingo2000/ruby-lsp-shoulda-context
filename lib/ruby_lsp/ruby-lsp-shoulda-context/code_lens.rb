@@ -9,6 +9,9 @@ module RubyLsp
 
       include ::RubyLsp::Requests::Support::Common
 
+      SUPPORTED_TEST_LIBRARIES = T.let(["minitest", "test-unit"], T::Array[String])
+      REQUIRED_LIBRARY = T.let("shoulda-context", String)
+
       ResponseType = type_member { { fixed: T::Array[::RubyLsp::Interface::CodeLens] } }
 
       sig { override.returns(ResponseType) }
@@ -22,7 +25,7 @@ module RubyLsp
         @group_id_stack = T.let([], T::Array[Integer])
         @test_id_stack = T.let([], T::Array[Integer])
         @id = T.let(1, Integer)
-        dispatcher.register(self, :on_call_node_enter, :on_call_node_leave)
+        dispatcher.register(self, :on_call_node_enter, :on_call_node_leave, :on_class_node_enter, :on_class_node_leave)
 
         @base_command = T.let(
           begin
@@ -78,6 +81,22 @@ module RubyLsp
         end
       end
 
+      sig { params(node: Prism::ClassNode).void }
+      def on_class_node_enter(node)
+        class_name = node.constant_path.slice
+        if class_name.end_with?("Test")
+          add_test_code_lens(node, name: class_name, kind: :group)
+        end
+
+        @group_id_stack.push(@id)
+        @id += 1
+      end
+
+      sig { params(node: Prism::ClassNode).void }
+      def on_class_node_leave(node)
+        @group_id_stack.pop
+      end
+
       private
 
       sig { params(node: Prism::CallNode).returns(T::Boolean) }
@@ -109,6 +128,9 @@ module RubyLsp
 
       sig { params(node: Prism::Node, name: String, kind: Symbol).void }
       def add_test_code_lens(node, name:, kind:)
+        return unless DependencyDetector.instance.dependencies.include?(REQUIRED_LIBRARY)
+        return unless SUPPORTED_TEST_LIBRARIES.include?(DependencyDetector.instance.detected_test_library) && @path
+
         command = "#{@base_command} #{@path} -n \"/#{name}/\""
 
         grouping_data = { group_id: @group_id_stack.last, kind: kind, id: @id }
