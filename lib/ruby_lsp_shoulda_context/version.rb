@@ -3,6 +3,6 @@
 
 module RubyLsp
   module ShouldaContext
-    VERSION = "0.2.9"
+    VERSION = "0.0.0"
   end
 end
