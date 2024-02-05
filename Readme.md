@@ -2,6 +2,15 @@
 
 This gem provides support for [shoulda-context](https://github.com/thoughtbot/shoulda-context) using [ruby-lsp](https://github.com/Shopify/ruby-lsp/blob/main/lib/rubocop/cop/ruby_lsp/use_register_with_handler_method.rb)
 
+## Installation:
+
+```
+# Gemfile
+group :development do
+  gem "ruby-lsp-shoulda-context", :git => "git://github.com/domingo2000/ruby-lsp-shoulda-context"
+end
+```
+
 Currently it works fine with the
 
 ## Roadmap:
