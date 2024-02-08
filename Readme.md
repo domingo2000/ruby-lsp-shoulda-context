@@ -8,11 +8,11 @@ TODO: Replace `ruby-lsp-shoulda-context` with your gem name right after releasin
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add ruby-lsp-shoulda-context
+    bundle add ruby-lsp-shoulda-context
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install ruby-lsp-shoulda-context
+    gem install ruby-lsp-shoulda-context
 
 ## Usage
 
@@ -36,7 +36,7 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 Everyone interacting in the RubyLsp::ShouldaContext project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[domingo2000]/ruby-lsp-shoulda-context/blob/main/CODE_OF_CONDUCT.md).
 
-## Roadmap:
+## Roadmap
 
 - [x] Make context runnable
 - [x] Make should with string runnable
