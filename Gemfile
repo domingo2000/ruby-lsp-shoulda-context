@@ -20,4 +20,5 @@ group :development do
   gem "rubocop-rake", "~> 0.6.0", require: false
   gem "rubocop-sorbet", "~> 0.7", require: false
   gem "bump", "~> 0.10.0", require: false
+  gem "pry"
 end

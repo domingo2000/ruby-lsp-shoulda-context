@@ -9,7 +9,16 @@ module RubyLsp
 
       include ::RubyLsp::Requests::Support::Common
 
-      SUPPORTED_TEST_LIBRARIES = T.let(["minitest", "test-unit"], T::Array[String])
+      BASE_COMMAND = T.let(
+        begin
+          Bundler.with_original_env { Bundler.default_lockfile }
+          "bundle exec ruby"
+        rescue Bundler::GemfileNotFound
+          "ruby"
+        end + " -Itest ",
+        String,
+      )
+
       REQUIRED_LIBRARY = T.let("shoulda-context", String)
 
       ResponseType = type_member { { fixed: T::Array[::RubyLsp::Interface::CodeLens] } }
@@ -22,29 +31,12 @@ module RubyLsp
         @_response = T.let([], ResponseType)
         # Listener is only initialized if uri.to_standardized_path is valid
         @path = T.let(T.must(uri.to_standardized_path), String)
+        @group_id = T.let(1, Integer)
         @group_id_stack = T.let([], T::Array[Integer])
-        @test_id_stack = T.let([], T::Array[Integer])
-        @id = T.let(1, Integer)
+        @pattern = T.let("test_: ", String)
         dispatcher.register(self, :on_call_node_enter, :on_call_node_leave, :on_class_node_enter, :on_class_node_leave)
 
-        @base_command = T.let(
-          begin
-            cmd = if File.exist?(File.join(Dir.pwd, "bin", "rspec"))
-              "bin/rspec"
-            else
-              "rspec"
-            end
-
-            if File.exist?("Gemfile.lock")
-              "bundle exec #{cmd}"
-            else
-              cmd
-            end
-          end,
-          String,
-        )
-
-        @base_command = "bundle exec ruby -ITest"
+        @base_command = BASE_COMMAND
 
         super(dispatcher)
       end
@@ -54,42 +46,49 @@ module RubyLsp
         case node.message
         when "should"
           name = generate_name(node)
+          @pattern += "should #{name} "
           add_test_code_lens(node, name: name, kind: :example)
-          @id += 1
-          @test_id_stack.push(@id)
         when "context"
           return unless valid_group?(node)
 
           name = generate_name(node)
+          @pattern += "#{name} "
           add_test_code_lens(node, name: name, kind: :group)
-          @group_id_stack.push(@id)
-          @id += 1
-          @test_id_stack.push(@id)
+
+          @group_id_stack.push(@group_id)
+          @group_id += 1
         end
       end
 
       sig { params(node: Prism::CallNode).void }
       def on_call_node_leave(node)
         case node.message
+        when "should"
+          name = generate_name(node)
+          @pattern = remove_last_pattern_in_string(@pattern, "should #{name} ")
         when "context"
           return unless valid_group?(node)
 
+          name = generate_name(node)
+          @pattern = remove_last_pattern_in_string(@pattern, "#{name} ")
           @group_id_stack.pop
-          @test_id_stack.pop
-        when "should"
-          @test_id_stack.pop
         end
       end
 
       sig { params(node: Prism::ClassNode).void }
       def on_class_node_enter(node)
         class_name = node.constant_path.slice
-        if class_name.end_with?("Test")
-          add_test_code_lens(node, name: class_name, kind: :group)
+
+        if @path && class_name.end_with?("Test")
+          add_test_code_lens(
+            node,
+            name: class_name,
+            kind: :group,
+          )
         end
 
-        @group_id_stack.push(@id)
-        @id += 1
+        @group_id_stack.push(@group_id)
+        @group_id += 1
       end
 
       sig { params(node: Prism::ClassNode).void }
@@ -99,9 +98,17 @@ module RubyLsp
 
       private
 
+      def remove_last_pattern_in_string(string, pattern)
+        string.sub(/#{pattern}$/, "")
+      end
+
+      def pattern_only_has_test?(pattern)
+        pattern == "test_: "
+      end
+
       sig { params(node: Prism::CallNode).returns(T::Boolean) }
       def valid_group?(node)
-        !(node.block.nil? || (node.receiver && node.receiver&.slice != "RSpec"))
+        !node.block.nil?
       end
 
       sig { params(node: Prism::CallNode).returns(String) }
@@ -129,11 +136,11 @@ module RubyLsp
       sig { params(node: Prism::Node, name: String, kind: Symbol).void }
       def add_test_code_lens(node, name:, kind:)
         return unless DependencyDetector.instance.dependencies.include?(REQUIRED_LIBRARY)
-        return unless SUPPORTED_TEST_LIBRARIES.include?(DependencyDetector.instance.detected_test_library) && @path
 
-        command = "#{@base_command} #{@path} -n \"/#{name}/\""
+        command = "#{@base_command} #{@path} -n \"/#{@pattern.strip}/\""
 
-        grouping_data = { group_id: @group_id_stack.last, kind: kind, id: @id }
+        grouping_data = { group_id: @group_id_stack.last, kind: kind }
+        grouping_data[:id] = @group_id if kind == :group
 
         arguments = [
           @path,
