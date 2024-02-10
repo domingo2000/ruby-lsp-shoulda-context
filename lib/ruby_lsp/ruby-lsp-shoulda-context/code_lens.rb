@@ -31,6 +31,7 @@ module RubyLsp
         @_response = T.let([], ResponseType)
         # Listener is only initialized if uri.to_standardized_path is valid
         @path = T.let(T.must(uri.to_standardized_path), String)
+        @class_name = T.let("", String)
         @group_id = T.let(1, Integer)
         @group_id_stack = T.let([], T::Array[Integer])
         @pattern = T.let("test_: ", String)
@@ -46,6 +47,12 @@ module RubyLsp
         case node.message
         when "should"
           name = generate_name(node)
+
+          # If is top level should without context the DSL is different
+          if @group_id_stack.length == 1
+            @pattern += "#{@class_name} "
+          end
+
           @pattern += "should #{name} "
           add_test_code_lens(node, name: name, kind: :example)
         when "context"
@@ -65,7 +72,13 @@ module RubyLsp
         case node.message
         when "should"
           name = generate_name(node)
+
           @pattern = remove_last_pattern_in_string(@pattern, "should #{name} ")
+
+          # If is top level should without context the DSL is different
+          if @group_id_stack.length == 1
+            @pattern = remove_last_pattern_in_string(@pattern, "#{@class_name} ")
+          end
         when "context"
           return unless valid_group?(node)
 
@@ -78,6 +91,7 @@ module RubyLsp
       sig { params(node: Prism::ClassNode).void }
       def on_class_node_enter(node)
         class_name = node.constant_path.slice
+        @class_name = remove_last_pattern_in_string(class_name, "Test")
 
         if @path && class_name.end_with?("Test")
           add_test_code_lens(
@@ -100,10 +114,6 @@ module RubyLsp
 
       def remove_last_pattern_in_string(string, pattern)
         string.sub(/#{pattern}$/, "")
-      end
-
-      def pattern_only_has_test?(pattern)
-        pattern == "test_: "
       end
 
       sig { params(node: Prism::CallNode).returns(T::Boolean) }
