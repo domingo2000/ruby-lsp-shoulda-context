@@ -45,7 +45,7 @@ module RubyLsp
           assert_equal("/fake_test.rb", response_.command.arguments[0])
           assert_equal("test 1", response_.command.arguments[1])
           assert_equal(
-            "ruby -ITest /fake_test.rb -n \"/test_: should test 1/\"",
+            "bundle exec ruby -ITest /fake_test.rb -n \"/test_: should test 1/\"",
             response_.command.arguments[2],
           )
           assert_equal({ start_line: 0, start_column: 0, end_line: 2, end_column: 3 }, response_.command.arguments[3])
@@ -88,7 +88,7 @@ module RubyLsp
         response[0..2].each do |response_|
           assert_equal("/fake_test.rb", response_.command.arguments[0])
           assert_equal("context 1", response_.command.arguments[1])
-          assert_equal("ruby -ITest /fake_test.rb -n \"/test_: context 1/\"", response_.command.arguments[2])
+          assert_equal("bundle exec ruby -ITest /fake_test.rb -n \"/test_: context 1/\"", response_.command.arguments[2])
           assert_equal({ start_line: 0, start_column: 0, end_line: 4, end_column: 3 }, response_.command.arguments[3])
         end
 
@@ -100,7 +100,7 @@ module RubyLsp
           assert_equal("/fake_test.rb", response_.command.arguments[0])
           assert_equal("test 1", response_.command.arguments[1])
           assert_equal(
-            "ruby -ITest /fake_test.rb -n \"/test_: context 1 should test 1/\"",
+            "bundle exec ruby -ITest /fake_test.rb -n \"/test_: context 1 should test 1/\"",
             response_.command.arguments[2],
           )
           assert_equal({ start_line: 1, start_column: 2, end_line: 3, end_column: 5 }, response_.command.arguments[3])
@@ -151,7 +151,7 @@ module RubyLsp
         response[0..2].each do |response_|
           assert_equal("/fake_test.rb", response_.command.arguments[0])
           assert_equal("context 1", response_.command.arguments[1])
-          assert_equal("ruby -ITest /fake_test.rb -n \"/test_: context 1/\"", response_.command.arguments[2])
+          assert_equal("bundle exec ruby -ITest /fake_test.rb -n \"/test_: context 1/\"", response_.command.arguments[2])
           assert_equal({ start_line: 0, start_column: 0, end_line: 4, end_column: 3 }, response_.command.arguments[3])
         end
 
@@ -164,7 +164,7 @@ module RubyLsp
           assert_equal("/fake_test.rb", response_.command.arguments[0])
           assert_equal("test 1", response_.command.arguments[1])
           assert_equal(
-            "ruby -ITest /fake_test.rb -n \"/test_: context 1 should test 1/\"",
+            "bundle exec ruby -ITest /fake_test.rb -n \"/test_: context 1 should test 1/\"",
             response_.command.arguments[2],
           )
           assert_equal({ start_line: 1, start_column: 2, end_line: 3, end_column: 5 }, response_.command.arguments[3])
@@ -178,7 +178,7 @@ module RubyLsp
         response[6..8].each do |response_|
           assert_equal("/fake_test.rb", response_.command.arguments[0])
           assert_equal("context 2", response_.command.arguments[1])
-          assert_equal("ruby -ITest /fake_test.rb -n \"/test_: context 2/\"", response_.command.arguments[2])
+          assert_equal("bundle exec ruby -ITest /fake_test.rb -n \"/test_: context 2/\"", response_.command.arguments[2])
           assert_equal(
             { start_line: 6, start_column: 0, end_line: 10, end_column: 3 },
             response_.command.arguments[3],
@@ -194,7 +194,7 @@ module RubyLsp
           assert_equal("/fake_test.rb", response_.command.arguments[0])
           assert_equal("test 1", response_.command.arguments[1])
           assert_equal(
-            "ruby -ITest /fake_test.rb -n \"/test_: context 2 should test 1/\"",
+            "bundle exec ruby -ITest /fake_test.rb -n \"/test_: context 2 should test 1/\"",
             response_.command.arguments[2],
           )
           assert_equal({ start_line: 7, start_column: 2, end_line: 9, end_column: 5 }, response_.command.arguments[3])

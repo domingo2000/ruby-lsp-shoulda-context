@@ -15,7 +15,7 @@ module RubyLsp
           "bundle exec ruby"
         rescue Bundler::GemfileNotFound
           "ruby"
-        end + " -Itest ",
+        end + " -ITest",
         String,
       )
 
