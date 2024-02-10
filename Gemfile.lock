@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     ruby-lsp-shoulda-context (0.3.1)
-      ruby-lsp (>= 0.12.0)
+      ruby-lsp (>= 0.13.0, < 0.14.0)
 
 GEM
   remote: https://rubygems.org/
