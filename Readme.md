@@ -4,7 +4,7 @@ This gem provides support for [shoulda-context](https://github.com/thoughtbot/sh
 
 ## Installation
 
-TODO: Replace `ruby-lsp-shoulda-context` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Replace `ruby-lsp-shoulda-context` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
 
 Install the gem and add to the application's Gemfile by executing:
 
@@ -41,7 +41,7 @@ Everyone interacting in the RubyLsp::ShouldaContext project's codebases, issue t
 - [x] Make context runnable
 - [x] Make should with string runnable
 - [x] Make should with method runnable
-- [ ] Make exec method conditional to rails or Minitest setup
+- [x] Make exec method conditional to rails or Minitest setup
 - [x] Make inner context or inner should with collissions with outer DSL not collide using full name of the test (Currently if 2 tests have the same name both are executed)
 - [x] Provide grouping with classes that ends with "..Test" syntax (Note: The codelens is duplicated becuase lsp support minitest by default and LSP responses are merged)
 - [ ] Provide support for Inner Classes
