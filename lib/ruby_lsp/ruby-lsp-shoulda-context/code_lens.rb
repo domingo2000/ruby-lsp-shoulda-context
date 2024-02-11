@@ -11,11 +11,12 @@ module RubyLsp
 
       BASE_COMMAND = T.let(
         begin
+          cmd = File.exist?(File.join(Dir.pwd, "bin", "rails")) ? "bin/rails test" : "ruby -ITest"
           Bundler.with_original_env { Bundler.default_lockfile }
-          "bundle exec ruby"
+          "bundle exec #{cmd}"
         rescue Bundler::GemfileNotFound
-          "ruby"
-        end + " -ITest",
+          cmd
+        end,
         String,
       )
 
@@ -97,7 +98,7 @@ module RubyLsp
           add_test_code_lens(
             node,
             name: class_name,
-            kind: :group,
+            kind: :class,
           )
         end
 
@@ -147,7 +148,13 @@ module RubyLsp
       def add_test_code_lens(node, name:, kind:)
         return unless DependencyDetector.instance.dependencies.include?(REQUIRED_LIBRARY)
 
-        command = "#{@base_command} #{@path} -n \"/#{@pattern.strip}/\""
+        if kind == :class
+          pattern = "#{@class_name}Test"
+          kind = :group
+        else
+          pattern = @pattern.strip
+        end
+        command = "#{@base_command} #{@path} --name \"/#{pattern}/\""
 
         grouping_data = { group_id: @group_id_stack.last, kind: kind }
         grouping_data[:id] = @group_id if kind == :group
