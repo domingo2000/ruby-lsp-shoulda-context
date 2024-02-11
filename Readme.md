@@ -4,8 +4,6 @@ This gem provides support for [shoulda-context](https://github.com/thoughtbot/sh
 
 ## Installation
 
-Replace `ruby-lsp-shoulda-context` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
     bundle add ruby-lsp-shoulda-context
