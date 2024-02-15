@@ -1,3 +1,6 @@
+[![Gem Version](https://badge.fury.io/rb/ruby-lsp-shoulda-context.svg)](https://badge.fury.io/rb/ruby-lsp-shoulda-context)
+![Build Status](https://github.com/domingo2000/ruby-lsp-shoulda-context/actions/workflows/main.yml/badge.svg)
+
 # RubyLsp::ShouldaContext
 
 This gem provides support for [shoulda-context](https://github.com/thoughtbot/shoulda-context) using [ruby-lsp](https://github.com/Shopify/ruby-lsp/blob/main/lib/rubocop/cop/ruby_lsp/use_register_with_handler_method.rb)
