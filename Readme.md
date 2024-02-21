@@ -19,6 +19,12 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 Just enjoy the magic of LSP with shoulda context tests!.
 
+The extension can be enabled or disabled passing the `RUBY_LSP_SHOULDA_CONTEXT=[true|false]` enviroment variable. This enviroment variable is loaded automatially from in a `.env` file with priority
+
+`.env  > .env.development > .env.development.local`
+
+If not set it defaults to `true`
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
