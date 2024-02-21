@@ -29,6 +29,8 @@ module RubyLsp
 
       sig { params(uri: URI::Generic, dispatcher: Prism::Dispatcher).void }
       def initialize(uri, dispatcher)
+        return if ENV["RUBY_LSP_SHOULDA_CONTEXT"] == "false"
+
         @_response = T.let([], ResponseType)
         # Listener is only initialized if uri.to_standardized_path is valid
         @path = T.let(T.must(uri.to_standardized_path), String)

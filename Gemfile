@@ -6,6 +6,7 @@ gemspec
 
 group :test do
   gem "shoulda-context", "~> 2.0"
+  gem "dotenv", "~> 3.0", ">= 3.0.2"
 end
 
 # gem "rails"

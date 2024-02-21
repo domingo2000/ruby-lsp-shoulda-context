@@ -3,6 +3,7 @@
 
 require "ruby_lsp/addon"
 require "ruby_lsp/internal"
+require "dotenv/load"
 
 require_relative "code_lens"
 
@@ -14,7 +15,9 @@ module RubyLsp
       extend T::Sig
 
       sig { override.params(message_queue: Thread::Queue).void }
-      def activate(message_queue); end
+      def activate(message_queue)
+        Dotenv.load(".env.development.local", ".env.development")
+      end
 
       sig { override.void }
       def deactivate; end

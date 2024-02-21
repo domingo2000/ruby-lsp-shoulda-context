@@ -15,6 +15,7 @@ GEM
     debug (1.9.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    dotenv (3.0.2)
     io-console (0.7.2)
     irb (1.11.1)
       rdoc
@@ -82,6 +83,7 @@ PLATFORMS
 DEPENDENCIES
   bump (~> 0.10.0)
   debug (~> 1.8)
+  dotenv (~> 3.0, >= 3.0.2)
   minitest (~> 5.20)
   minitest-reporters (~> 1.6)
   pry
