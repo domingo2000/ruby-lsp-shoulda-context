@@ -9,7 +9,7 @@ This gem provides support for [shoulda-context](https://github.com/thoughtbot/sh
 
 Add the gem to the application's Gemfile `:development` group:
 
-    gem 'ruby-lsp-shoulda-context', '~> 0.4.0', require: false
+    gem 'ruby-lsp-shoulda-context', '~> 0.4.2', require: false
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
