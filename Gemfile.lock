@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     ruby-lsp-shoulda-context (0.4.1)
-      ruby-lsp (>= 0.13.0, < 0.14.0)
+      ruby-lsp (~> 0.16.6, >= 0.16.0)
 
 GEM
   remote: https://rubygems.org/
@@ -33,7 +33,7 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
-    prism (0.19.0)
+    prism (0.27.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -67,9 +67,9 @@ GEM
       rubocop (~> 1.51)
     rubocop-sorbet (0.7.5)
       rubocop (>= 0.90.0)
-    ruby-lsp (0.13.4)
+    ruby-lsp (0.16.6)
       language_server-protocol (~> 3.17.0)
-      prism (>= 0.19.0, < 0.20)
+      prism (>= 0.23.0, < 0.28)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     shoulda-context (2.0.0)

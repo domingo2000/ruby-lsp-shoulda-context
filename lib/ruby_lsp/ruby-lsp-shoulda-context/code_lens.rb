@@ -3,7 +3,7 @@
 
 module RubyLsp
   module ShouldaContext
-    class CodeLens < ::RubyLsp::Listener
+    class CodeLens
       extend T::Sig
       extend T::Generic
 
@@ -27,11 +27,19 @@ module RubyLsp
       sig { override.returns(ResponseType) }
       attr_reader :_response
 
-      sig { params(uri: URI::Generic, dispatcher: Prism::Dispatcher).void }
-      def initialize(uri, dispatcher)
+      sig do
+        params(
+          response_builder: RubyLsp::ResponseBuilders::CollectionResponseBuilder[Interface::CodeLens],
+          uri: URI::Generic,
+          dispatcher: Prism::Dispatcher,
+          global_state: RubyLsp::GlobalState,
+        ).void
+      end
+      def initialize(response_builder, uri, dispatcher, global_state)
+        @response_builder = response_builder
+        @global_state = global_state
         return if ENV["RUBY_LSP_SHOULDA_CONTEXT"] == "false"
 
-        @_response = T.let([], ResponseType)
         # Listener is only initialized if uri.to_standardized_path is valid
         @path = T.let(T.must(uri.to_standardized_path), String)
         @class_name = T.let("", String)
@@ -41,8 +49,6 @@ module RubyLsp
         dispatcher.register(self, :on_call_node_enter, :on_call_node_leave, :on_class_node_enter, :on_class_node_leave)
 
         @base_command = BASE_COMMAND
-
-        super(dispatcher)
       end
 
       sig { params(node: Prism::CallNode).void }
@@ -148,7 +154,7 @@ module RubyLsp
 
       sig { params(node: Prism::Node, name: String, kind: Symbol).void }
       def add_test_code_lens(node, name:, kind:)
-        return unless DependencyDetector.instance.dependencies.include?(REQUIRED_LIBRARY)
+        return unless are_required_libraries_installed?
 
         if kind == :class
           pattern = "#{@class_name}Test"
@@ -173,7 +179,7 @@ module RubyLsp
           },
         ]
 
-        @_response << create_code_lens(
+        @response_builder << create_code_lens(
           node,
           title: "Run",
           command_name: "rubyLsp.runTest",
@@ -181,7 +187,7 @@ module RubyLsp
           data: { type: "test", **grouping_data },
         )
 
-        @_response << create_code_lens(
+        @response_builder << create_code_lens(
           node,
           title: "Run In Terminal",
           command_name: "rubyLsp.runTestInTerminal",
@@ -189,13 +195,17 @@ module RubyLsp
           data: { type: "test_in_terminal", **grouping_data },
         )
 
-        @_response << create_code_lens(
+        @response_builder << create_code_lens(
           node,
           title: "Debug",
           command_name: "rubyLsp.debugTest",
           arguments: arguments,
           data: { type: "debug", **grouping_data },
         )
+      end
+
+      def are_required_libraries_installed?
+        Bundler.locked_gems.dependencies.keys.include?(REQUIRED_LIBRARY)
       end
     end
   end
