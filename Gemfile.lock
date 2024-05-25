@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     ruby-lsp-shoulda-context (0.4.2)
+      dotenv (~> 3.0, >= 3.0.2)
       ruby-lsp (~> 0.16.6, >= 0.16.0)
 
 GEM
@@ -83,7 +84,6 @@ PLATFORMS
 DEPENDENCIES
   bump (~> 0.10.0)
   debug (~> 1.8)
-  dotenv (~> 3.0, >= 3.0.2)
   minitest (~> 5.20)
   minitest-reporters (~> 1.6)
   pry
