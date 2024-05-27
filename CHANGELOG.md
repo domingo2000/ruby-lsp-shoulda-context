@@ -1,4 +1,6 @@
 ## [Unreleased]
+## [0.4.3] - 2024-05-27
+- Add `dotenv` as a runtime dependency to the gemspec
 ## [0.4.0] - 2024-02-10
 - Added support to ruby on rails
 - Fixed Class Run on terminal whith wrong pattern
