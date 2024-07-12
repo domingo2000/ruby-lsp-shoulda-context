@@ -49,5 +49,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency("dotenv", "~> 3.0", ">= 3.0.2")
-  spec.add_runtime_dependency("ruby-lsp", "~> 0.16.6", ">= 0.16.0")
+  spec.add_runtime_dependency("ruby-lsp", "~> 0.17.7", ">= 0.17.7")
 end
