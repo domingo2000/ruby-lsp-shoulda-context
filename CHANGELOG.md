@@ -1,4 +1,6 @@
 ## [Unreleased]
+## [0.4.5] - 2024-07-12
+- Relaxed dotenv version to be more compatible with dotenv older than 3.0
 ## [0.4.4] - 2024-07-12
 - Updated Ruby LSP version
 ## [0.4.3] - 2024-05-27
