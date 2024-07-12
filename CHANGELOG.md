@@ -1,4 +1,6 @@
 ## [Unreleased]
+## [0.4.4] - 2024-07-12
+- Updated Ruby LSP version
 ## [0.4.3] - 2024-05-27
 - Add `dotenv` as a runtime dependency to the gemspec
 ## [0.4.0] - 2024-02-10
