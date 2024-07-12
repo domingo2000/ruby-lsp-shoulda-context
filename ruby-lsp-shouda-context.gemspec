@@ -48,6 +48,6 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency("dotenv", "~> 3.0", ">= 3.0.2")
+  spec.add_runtime_dependency("dotenv", ">= 2.7.6", "< 4.0")
   spec.add_runtime_dependency("ruby-lsp", "~> 0.17.7", ">= 0.17.7")
 end
