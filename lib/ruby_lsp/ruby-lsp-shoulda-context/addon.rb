@@ -24,7 +24,7 @@ module RubyLsp
 
       sig { override.returns(String) }
       def name
-        "Ruby LSP My Gem"
+        "Ruby LSP Shoulda Context"
       end
 
       def create_code_lens_listener(response_builder, uri, dispatcher)
