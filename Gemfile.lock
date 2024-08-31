@@ -3,7 +3,7 @@ PATH
   specs:
     ruby-lsp-shoulda-context (0.4.5)
       dotenv (>= 2.7.6, < 4.0)
-      ruby-lsp (~> 0.17.7, >= 0.17.7)
+      ruby-lsp (~> 0.17.17, >= 0.17.17)
 
 GEM
   remote: https://rubygems.org/
@@ -35,7 +35,7 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
-    prism (0.30.0)
+    prism (1.0.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -71,9 +71,9 @@ GEM
       rubocop (~> 1.51)
     rubocop-sorbet (0.7.5)
       rubocop (>= 0.90.0)
-    ruby-lsp (0.17.7)
+    ruby-lsp (0.17.17)
       language_server-protocol (~> 3.17.0)
-      prism (>= 0.29.0, < 0.31)
+      prism (~> 1.0)
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
