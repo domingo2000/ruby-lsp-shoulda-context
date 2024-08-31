@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-lsp-shoulda-context (0.4.5)
+    ruby-lsp-shoulda-context (0.4.6)
       dotenv (>= 2.7.6, < 4.0)
       ruby-lsp (~> 0.17.17, >= 0.17.17)
 
