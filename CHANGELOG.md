@@ -1,4 +1,6 @@
 ## [Unreleased]
+## [0.4.7] - 2024-11-18
+- Updated Ruby LSP version to 0.21.0 and changed version dependency locking in gemspec to version constraint vía [RubyLSP constraint](https://github.com/Shopify/ruby-lsp/pull/2638) to make it more forward compatible.
 ## [0.4.6] - 2024-08-31
 - Updated Ruby LSP version to 0.17.17
 ## [0.4.5] - 2024-07-12
