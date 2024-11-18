@@ -6,6 +6,7 @@ gemspec
 
 group :test do
   gem "shoulda-context", "~> 2.0"
+  gem "ruby-lsp", "~> 0.21.3"
 end
 
 # gem "rails"
