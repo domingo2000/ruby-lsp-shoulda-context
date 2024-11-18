@@ -6,6 +6,9 @@ require "ruby_lsp/internal"
 require "dotenv/load"
 
 require_relative "code_lens"
+require_relative "../shoulda_context/version"
+
+RubyLsp::Addon.depend_on_ruby_lsp!("~> 0.21.0")
 
 module RubyLsp
   module ShouldaContext
@@ -29,6 +32,10 @@ module RubyLsp
 
       def create_code_lens_listener(response_builder, uri, dispatcher)
         CodeLens.new(response_builder, uri, dispatcher, @global_state)
+      end
+
+      def version
+        RubyLsp::ShouldaContext::VERSION
       end
     end
   end

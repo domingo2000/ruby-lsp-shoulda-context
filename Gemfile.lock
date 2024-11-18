@@ -3,7 +3,6 @@ PATH
   specs:
     ruby-lsp-shoulda-context (0.4.6)
       dotenv (>= 2.7.6, < 4.0)
-      ruby-lsp (~> 0.17.17, >= 0.17.17)
 
 GEM
   remote: https://rubygems.org/
@@ -23,7 +22,7 @@ GEM
       reline (>= 0.4.2)
     json (2.7.1)
     language_server-protocol (3.17.0.3)
-    logger (1.6.0)
+    logger (1.6.1)
     method_source (1.0.0)
     minitest (5.21.2)
     minitest-reporters (1.6.1)
@@ -35,7 +34,7 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
-    prism (1.0.0)
+    prism (1.2.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -44,7 +43,7 @@ GEM
     racc (1.7.3)
     rainbow (3.1.1)
     rake (13.1.0)
-    rbs (3.5.2)
+    rbs (3.6.1)
       logger
     rdoc (6.6.2)
       psych (>= 4.0.0)
@@ -71,14 +70,14 @@ GEM
       rubocop (~> 1.51)
     rubocop-sorbet (0.7.5)
       rubocop (>= 0.90.0)
-    ruby-lsp (0.17.17)
+    ruby-lsp (0.21.3)
       language_server-protocol (~> 3.17.0)
-      prism (~> 1.0)
+      prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     shoulda-context (2.0.0)
-    sorbet-runtime (0.5.11226)
+    sorbet-runtime (0.5.11647)
     stringio (3.1.0)
     unicode-display_width (2.5.0)
 
@@ -96,6 +95,7 @@ DEPENDENCIES
   rubocop-rake (~> 0.6.0)
   rubocop-shopify (~> 2.14)
   rubocop-sorbet (~> 0.7)
+  ruby-lsp (~> 0.21.3)
   ruby-lsp-shoulda-context!
   shoulda-context (~> 2.0)
 
