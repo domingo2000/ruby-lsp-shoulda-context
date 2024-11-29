@@ -70,14 +70,14 @@ GEM
       rubocop (~> 1.51)
     rubocop-sorbet (0.7.5)
       rubocop (>= 0.90.0)
-    ruby-lsp (0.21.3)
+    ruby-lsp (0.22.1)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     shoulda-context (2.0.0)
-    sorbet-runtime (0.5.11647)
+    sorbet-runtime (0.5.11670)
     stringio (3.1.0)
     unicode-display_width (2.5.0)
 
@@ -95,7 +95,7 @@ DEPENDENCIES
   rubocop-rake (~> 0.6.0)
   rubocop-shopify (~> 2.14)
   rubocop-sorbet (~> 0.7)
-  ruby-lsp (~> 0.21.3)
+  ruby-lsp (~> 0.22.0)
   ruby-lsp-shoulda-context!
   shoulda-context (~> 2.0)
 

@@ -8,7 +8,7 @@ require "dotenv/load"
 require_relative "code_lens"
 require_relative "../shoulda_context/version"
 
-RubyLsp::Addon.depend_on_ruby_lsp!("~> 0.21.0")
+RubyLsp::Addon.depend_on_ruby_lsp!("~> 0.22.0")
 
 module RubyLsp
   module ShouldaContext
