@@ -1,4 +1,6 @@
 ## [Unreleased]
+## [0.4.9] - 2025-01-13
+- Updated Ruby LSP version to 0.23.0
 ## [0.4.8] - 2024-11-29
 - Updated Ruby LSP version to 0.22.0
 ## [0.4.7] - 2024-11-18

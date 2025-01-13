@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-lsp-shoulda-context (0.4.8)
+    ruby-lsp-shoulda-context (0.4.9)
       dotenv (>= 2.7.6, < 4.0)
 
 GEM
