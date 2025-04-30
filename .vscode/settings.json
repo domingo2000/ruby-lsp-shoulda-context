@@ -1,6 +1,5 @@
 {
     "cSpell.words": [
-        "dotenv",
         "rubocop",
         "shopify",
         "shoulda",
@@ -12,5 +11,10 @@
         "plaintext": false,
         "markdown": false,
         "scminput": false
+    },
+    "rubyLsp.addonSettings": {
+        "Ruby LSP Shoulda Context": {
+            "enabled": true
+        }
     }
 }

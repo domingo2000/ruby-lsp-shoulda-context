@@ -19,12 +19,14 @@ module RubyLsp
           uri: URI::Generic,
           dispatcher: Prism::Dispatcher,
           global_state: RubyLsp::GlobalState,
+          enabled: T::Boolean,
         ).void
       end
-      def initialize(response_builder, uri, dispatcher, global_state)
+      def initialize(response_builder, uri, dispatcher, global_state, enabled:)
+        return unless enabled
+
         @response_builder = response_builder
         @global_state = global_state
-        return if ENV["RUBY_LSP_SHOULDA_CONTEXT"] == "false"
 
         # Listener is only initialized if uri.to_standardized_path is valid
         @path = T.let(uri.to_standardized_path, String)

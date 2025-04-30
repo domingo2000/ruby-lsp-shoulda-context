@@ -3,7 +3,6 @@
 
 require "ruby_lsp/addon"
 require "ruby_lsp/internal"
-require "dotenv/load"
 
 require_relative "code_lens"
 require_relative "../shoulda_context/version"
@@ -20,13 +19,16 @@ module RubyLsp
         super
         @global_state = T.let(nil, T.nilable(RubyLsp::GlobalState))
         @message_queue = T.let(nil, T.nilable(Thread::Queue))
+        @settings = T.let(nil, T.nilable(T::Hash[String, T.untyped]))
+        @enabled = T.let(true, T::Boolean)
       end
 
       sig { override.params(global_state: RubyLsp::GlobalState, message_queue: Thread::Queue).void }
       def activate(global_state, message_queue)
         @message_queue = message_queue
         @global_state = global_state
-        Dotenv.load(".env.development.local", ".env.development")
+        @settings = @global_state.settings_for_addon(name)
+        @enabled = @settings.fetch(:enabled, true)
       end
 
       sig { override.void }
@@ -45,7 +47,7 @@ module RubyLsp
         ).void
       end
       def create_code_lens_listener(response_builder, uri, dispatcher)
-        CodeLens.new(response_builder, uri, dispatcher, T.must(@global_state))
+        CodeLens.new(response_builder, uri, dispatcher, T.must(@global_state), enabled: @enabled)
       end
 
       sig { override.returns(String) }

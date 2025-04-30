@@ -9,21 +9,31 @@ This gem provides support for [shoulda-context](https://github.com/thoughtbot/sh
 
 Add the gem to the application's Gemfile `:development` group:
 
+```ruby
     gem 'ruby-lsp-shoulda-context', '~> 0.4.2', require: false
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    gem install ruby-lsp-shoulda-context
+```bash
+   gem install ruby-lsp-shoulda-context
+```
 
 ## Usage
 
 Just enjoy the magic of LSP with shoulda context tests!.
 
-The extension can be enabled or disabled passing the `RUBY_LSP_SHOULDA_CONTEXT=[true|false]` enviroment variable. This enviroment variable is loaded automatially from in a `.env` file with priority
+The extension can be enabled or disabled passing the settings
 
-`.env  > .env.development > .env.development.local`
+```json
+"rubyLsp.addonSettings": {
+  "Ruby LSP Shoulda Context": {
+    "enabled": false
+  }
+}
+```
 
-If not set it defaults to `true`
+(For example in `.vscode/settings.json` in VSCode)
 
 ## Development
 
@@ -49,8 +59,8 @@ Everyone interacting in the RubyLsp::ShouldaContext project's codebases, issue t
 - [x] Make should with string runnable
 - [x] Make should with method runnable
 - [x] Make exec method conditional to rails or Minitest setup
-- [x] Make inner context or inner should with collissions with outer DSL not collide using full name of the test (Currently if 2 tests have the same name both are executed)
-- [x] Provide grouping with classes that ends with "..Test" syntax (Note: The codelens is duplicated becuase lsp support minitest by default and LSP responses are merged)
+- [x] Make inner context or inner should with collisions with outer DSL not collide using full name of the test (Currently if 2 tests have the same name both are executed)
+- [x] Provide grouping with classes that ends with "..Test" syntax (Note: The codelens is duplicated because lsp support minitest by default and LSP responses are merged)
 - [ ] Provide support for Inner Classes
 
 **Note**: This project is in very early stage and could have major bugs
