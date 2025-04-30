@@ -1,0 +1,16 @@
+{
+    "cSpell.words": [
+        "dotenv",
+        "rubocop",
+        "shopify",
+        "shoulda",
+        "Shoulda",
+        "SHOULDA"
+    ],
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
+}

@@ -15,7 +15,14 @@ module RubyLsp
     class Addon < ::RubyLsp::Addon
       extend T::Sig
 
-      sig { override.params(global_state: GlobalState, message_queue: Thread::Queue).void }
+      sig { void }
+      def initialize
+        super
+        @global_state = T.let(nil, T.nilable(RubyLsp::GlobalState))
+        @message_queue = T.let(nil, T.nilable(Thread::Queue))
+      end
+
+      sig { override.params(global_state: RubyLsp::GlobalState, message_queue: Thread::Queue).void }
       def activate(global_state, message_queue)
         @message_queue = message_queue
         @global_state = global_state
@@ -30,10 +37,18 @@ module RubyLsp
         "Ruby LSP Shoulda Context"
       end
 
+      sig do
+        override.params(
+          response_builder: ResponseBuilders::CollectionResponseBuilder[Interface::CodeLens],
+          uri: URI::Generic,
+          dispatcher: Prism::Dispatcher,
+        ).void
+      end
       def create_code_lens_listener(response_builder, uri, dispatcher)
-        CodeLens.new(response_builder, uri, dispatcher, @global_state)
+        CodeLens.new(response_builder, uri, dispatcher, T.must(@global_state))
       end
 
+      sig { override.returns(String) }
       def version
         RubyLsp::ShouldaContext::VERSION
       end

@@ -9,23 +9,9 @@ module RubyLsp
 
       include ::RubyLsp::Requests::Support::Common
 
-      BASE_COMMAND = T.let(
-        begin
-          cmd = File.exist?(File.join(Dir.pwd, "bin", "rails")) ? "bin/rails test" : "ruby -ITest"
-          Bundler.with_original_env { Bundler.default_lockfile }
-          "bundle exec #{cmd}"
-        rescue Bundler::GemfileNotFound
-          cmd
-        end,
-        String,
-      )
-
       REQUIRED_LIBRARY = T.let("shoulda-context", String)
 
       ResponseType = type_member { { fixed: T::Array[::RubyLsp::Interface::CodeLens] } }
-
-      sig { override.returns(ResponseType) }
-      attr_reader :_response
 
       sig do
         params(
@@ -41,14 +27,25 @@ module RubyLsp
         return if ENV["RUBY_LSP_SHOULDA_CONTEXT"] == "false"
 
         # Listener is only initialized if uri.to_standardized_path is valid
-        @path = T.let(T.must(uri.to_standardized_path), String)
+        @path = T.let(uri.to_standardized_path, String)
         @class_name = T.let("", String)
         @group_id = T.let(1, Integer)
         @group_id_stack = T.let([], T::Array[Integer])
         @pattern = T.let("test_: ", String)
         dispatcher.register(self, :on_call_node_enter, :on_call_node_leave, :on_class_node_enter, :on_class_node_leave)
 
-        @base_command = BASE_COMMAND
+        @base_command = T.let(initialize_base_command, String)
+      end
+
+      sig { returns(String) }
+      def initialize_base_command
+        cmd = File.exist?(File.join(Dir.pwd, "bin", "rails")) ? "bin/rails test" : "ruby -ITest"
+        begin
+          Bundler.with_original_env { Bundler.default_lockfile }
+          "bundle exec #{cmd}"
+        rescue Bundler::GemfileNotFound
+          cmd
+        end
       end
 
       sig { params(node: Prism::CallNode).void }
@@ -102,7 +99,7 @@ module RubyLsp
         class_name = node.constant_path.slice
         @class_name = remove_last_pattern_in_string(class_name, "Test")
 
-        if @path && class_name.end_with?("Test")
+        if class_name.end_with?("Test")
           add_test_code_lens(
             node,
             name: class_name,
@@ -121,6 +118,7 @@ module RubyLsp
 
       private
 
+      sig { params(string: String, pattern: String).returns(String) }
       def remove_last_pattern_in_string(string, pattern)
         string.sub(/#{pattern}$/, "")
       end
@@ -204,6 +202,7 @@ module RubyLsp
         )
       end
 
+      sig { returns(T::Boolean) }
       def are_required_libraries_installed?
         Bundler.locked_gems.dependencies.keys.include?(REQUIRED_LIBRARY)
       end

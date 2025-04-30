@@ -21,6 +21,7 @@ Sorbet/FalseSigil:
 Sorbet/TrueSigil:
   Enabled: true
   Exclude:
+    - "test/**/*.rb"
     - "**/*.rake"
     - "lib/**/*.rb"
     - "spec/**/*.rb"
@@ -31,7 +32,7 @@ Sorbet/StrictSigil:
     - "lib/**/*.rb"
   Exclude:
     - "**/*.rake"
-    - "spec/**/*.rb"
+    - "test/**/*.rb"
 
 Style/StderrPuts:
   Enabled: true
