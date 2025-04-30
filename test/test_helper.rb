@@ -7,6 +7,7 @@ require "ruby_lsp/ruby-lsp-shoulda-context/addon"
 require "ruby_lsp/test_helper"
 require "minitest/autorun"
 require "minitest/reporters"
+require "debug"
 
 minitest_reporter = if ENV["SPEC_REPORTER"]
   Minitest::Reporters::SpecReporter.new(color: true)

@@ -10,7 +10,7 @@ end
 
 # gem "rails"
 group :development do
-  gem "debug", "~> 1.8", require: false
+  gem "debug", "~> 1.10", require: false
   gem "minitest", "~> 5.20"
   gem "minitest-reporters", "~> 1.6"
   gem "rake", "~> 13.1"
