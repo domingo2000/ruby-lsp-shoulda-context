@@ -1,8 +1,9 @@
 inherit_gem:
   rubocop-shopify: rubocop.yml
 
+plugins:
+  - rubocop-sorbet
 require:
- - rubocop-sorbet
  - rubocop-rake
 
 AllCops:

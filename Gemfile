@@ -6,7 +6,7 @@ gemspec
 
 group :test do
   gem "shoulda-context", "~> 2.0"
-  gem "ruby-lsp", "~> 0.23.0"
+  gem "ruby-lsp", "~> 0.23.15"
 end
 
 # gem "rails"
@@ -21,4 +21,5 @@ group :development do
   gem "rubocop-sorbet", "~> 0.7", require: false
   gem "bump", "~> 0.10.0", require: false
   gem "pry"
+  gem "sorbet-static-and-runtime"
 end
