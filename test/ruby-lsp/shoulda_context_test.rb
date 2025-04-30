@@ -31,8 +31,8 @@ module RubyLsp
               },
             },
           )
-
           server.pop_response # Drop the notification change message
+          server.pop_response # Drop another notification message
 
           response = server.pop_response
           response = response.response
@@ -95,7 +95,7 @@ module RubyLsp
           )
 
           server.pop_response # Drop the notification change message
-
+          server.pop_response # Drop another notification message
           response = server.pop_response
           response = response.response
 
@@ -178,6 +178,7 @@ module RubyLsp
           )
 
           server.pop_response # Drop the notification change message
+          server.pop_response # Drop another notification message
 
           response = server.pop_response
           response = response.response
