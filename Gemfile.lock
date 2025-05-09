@@ -56,7 +56,7 @@ GEM
       prism (~> 1.0)
       rbs (>= 3.4.4)
       sorbet-runtime (>= 0.5.9204)
-    rbs (3.9.2)
+    rbs (3.9.3)
       logger
     rdoc (6.13.1)
       psych (>= 4.0.0)
@@ -83,7 +83,7 @@ GEM
       rubocop (~> 1.62)
     rubocop-sorbet (0.10.0)
       rubocop (>= 1)
-    ruby-lsp (0.23.15)
+    ruby-lsp (0.23.17)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
@@ -137,7 +137,7 @@ DEPENDENCIES
   rubocop-rake (~> 0.6.0)
   rubocop-shopify (~> 2.14)
   rubocop-sorbet (~> 0.7)
-  ruby-lsp (~> 0.23.15)
+  ruby-lsp (~> 0.23.17)
   ruby-lsp-shoulda-context!
   shoulda-context (~> 2.0)
   sorbet-static-and-runtime

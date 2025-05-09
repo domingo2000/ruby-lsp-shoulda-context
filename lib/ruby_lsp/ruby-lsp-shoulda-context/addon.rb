@@ -6,8 +6,9 @@ require "ruby_lsp/internal"
 
 require_relative "code_lens"
 require_relative "../shoulda_context/version"
+require_relative "listeners/test_discovery"
 
-RubyLsp::Addon.depend_on_ruby_lsp!("~> 0.23.0")
+RubyLsp::Addon.depend_on_ruby_lsp!("~> 0.23.17")
 
 module RubyLsp
   module ShouldaContext
@@ -39,15 +40,35 @@ module RubyLsp
         "Ruby LSP Shoulda Context"
       end
 
+      # sig do
+      #   override.params(
+      #     response_builder: ResponseBuilders::CollectionResponseBuilder[Interface::CodeLens],
+      #     uri: URI::Generic,
+      #     dispatcher: Prism::Dispatcher,
+      #   ).void
+      # end
+      # def create_code_lens_listener(response_builder, uri, dispatcher)
+      #   CodeLens.new(response_builder, uri, dispatcher, T.must(@global_state), enabled: @enabled)
+      # end
+
       sig do
         override.params(
-          response_builder: ResponseBuilders::CollectionResponseBuilder[Interface::CodeLens],
-          uri: URI::Generic,
+          response_builder: ResponseBuilders::TestCollection,
           dispatcher: Prism::Dispatcher,
+          uri: URI::Generic,
         ).void
       end
-      def create_code_lens_listener(response_builder, uri, dispatcher)
-        CodeLens.new(response_builder, uri, dispatcher, T.must(@global_state), enabled: @enabled)
+      def create_discover_tests_listener(response_builder, dispatcher, uri)
+        global_state = @global_state
+        return unless global_state
+        return unless @enabled
+
+        ShouldaTestStyle.new(
+          response_builder,
+          global_state,
+          dispatcher,
+          uri,
+        )
       end
 
       sig { override.returns(String) }

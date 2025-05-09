@@ -16,5 +16,6 @@
         "Ruby LSP Shoulda Context": {
             "enabled": true
         }
-    }
+    },
+    "rubyLsp.featureFlags": { "fullTestDiscovery": true }
 }
