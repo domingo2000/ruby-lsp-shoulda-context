@@ -241,6 +241,52 @@ module RubyLsp
           assert_equal 0, items.size
         end
       end
+
+      # Command Resolution
+
+      def test_resolve_test_commands
+        with_server do |server|
+          server.process_message({
+            id: 1,
+            method: "rubyLsp/resolveTestCommands",
+            params: {
+              items: [
+                {
+                  id: "Foo::MyTest",
+                  uri: "file:///test/my_test.rb",
+                  label: "Foo::MyTest",
+                  tags: ["framework:shoulda", "test_group"],
+                  children: [
+                    {
+                      id: "test 1",
+                      uri: "file:///test/my_test.rb",
+                      label: "test 1",
+                      tags: ["framework:shoulda", "test_group"],
+                      children: [
+                        {
+                          id: "test 11",
+                          uri: "file:///test/my_test.rb",
+                          label: "test 11",
+                          tags: ["framework:shoulda"],
+                          children: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          })
+
+          response = pop_result(server).response
+          assert_equal(
+            [
+              "bundle exec ruby -ITest /test/my_test.rb --name \"/Foo::MyTest#test_: test 1 should test 11/\"",
+            ],
+            response[:commands],
+          )
+        end
+      end
     end
   end
 end

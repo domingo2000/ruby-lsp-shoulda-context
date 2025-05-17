@@ -59,6 +59,15 @@ module RubyLsp
         )
       end
 
+      sig do
+        params(
+          items: T::Array[T::Hash[String, T.untyped]],
+        ).returns(T::Array[String])
+      end
+      def resolve_test_commands(items)
+        ShouldaTestStyle.resolve_test_commands(items)
+      end
+
       sig { override.returns(String) }
       def version
         RubyLsp::ShouldaContext::VERSION
