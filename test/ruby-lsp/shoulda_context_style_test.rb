@@ -110,9 +110,16 @@ module RubyLsp
 
           test_item = items.first
 
-          assert_equal "test 1", test_item.fetch(:id)
-          assert_equal "test 1", test_item.fetch(:label)
+          assert_equal "MyTest", test_item.fetch(:id)
+          assert_equal "MyTest", test_item.fetch(:label)
           assert_equal "framework:shoulda", test_item.fetch(:tags).first
+          assert_equal 1, test_item.fetch(:children).size
+
+          # Inner context
+          assert_equal "test 1", test_item.fetch(:children).first.fetch(:id)
+          assert_equal "test 1", test_item.fetch(:children).first.fetch(:label)
+          assert_equal "framework:shoulda", test_item.fetch(:children).first.fetch(:tags).first
+          assert_equal 0, test_item.fetch(:children).first.fetch(:children).size
         end
       end
 
