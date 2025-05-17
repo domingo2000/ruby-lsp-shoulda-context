@@ -22,5 +22,5 @@ group :development do
   gem "pry"
   gem "sorbet-static-and-runtime"
   gem "tapioca", require: false
-  gem "ruby-lsp", "~> 0.23.15"
+  gem "ruby-lsp", "~> 0.23.20"
 end
