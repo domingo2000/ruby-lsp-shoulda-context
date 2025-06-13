@@ -31,8 +31,7 @@ module RubyLsp
               },
             },
           )
-          server.pop_response # Drop the notification change message
-          server.pop_response # Drop another notification message
+          drop_unused_messages(server)
 
           response = server.pop_response
           response = response.response
@@ -93,9 +92,8 @@ module RubyLsp
               },
             },
           )
+          drop_unused_messages(server)
 
-          server.pop_response # Drop the notification change message
-          server.pop_response # Drop another notification message
           response = server.pop_response
           response = response.response
 
@@ -177,8 +175,7 @@ module RubyLsp
             },
           )
 
-          server.pop_response # Drop the notification change message
-          server.pop_response # Drop another notification message
+          drop_unused_messages(server)
 
           response = server.pop_response
           response = response.response
@@ -269,6 +266,12 @@ module RubyLsp
             )
           end
         end
+      end
+
+      private
+
+      def drop_unused_messages(server)
+        3.times { server.pop_response } # Drop the notification change message and two other messages
       end
     end
   end
