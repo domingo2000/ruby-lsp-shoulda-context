@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-lsp-shoulda-context (0.4.9)
+    ruby-lsp-shoulda-context (0.5.0)
       sorbet-runtime (>= 0.5.10782)
 
 GEM

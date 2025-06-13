@@ -1,8 +1,10 @@
 # Changelog
 
 ## [Unreleased]
+## [0.5.0] - 2025-06-13
 
 - **Breaking change** Remove Dotenv as dependency using native [RubyLSP settings](https://github.com/Shopify/ruby-lsp/pull/2513)
+- Updated Ruby LSP version to 0.24.0 or more
 
 ## [0.4.9] - 2025-01-13
 
